@@ -1,0 +1,63 @@
+# Core ML and NLP Dependencies
+torch>=2.0.0
+transformers>=4.35.0
+tokenizers>=0.14.0
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+
+# Bias Detection and Fairness
+fairlearn>=0.10.0
+aif360>=0.5.0
+shap>=0.43.0
+
+# Multi-language Support
+spacy>=3.7.0
+langdetect>=1.0.9
+polyglot>=16.7.4
+googletrans>=3.1.0
+
+# Real-time Processing
+kafka-python>=2.0.2
+redis>=5.0.0
+celery>=5.3.0
+
+# Data Processing
+datasets>=2.14.0
+nltk>=3.8.0
+textblob>=0.17.1
+
+# Monitoring and Visualization
+streamlit>=1.28.0
+plotly>=5.17.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+dash>=2.14.0
+
+# MLOps and Deployment
+mlflow>=2.8.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+
+# Configuration and Utilities
+pyyaml>=6.0.1
+click>=8.1.0
+tqdm>=4.66.0
+loguru>=0.7.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+# Development
+black>=23.10.0
+flake8>=6.1.0
+mypy>=1.7.0
+pre-commit>=3.5.0
+
+# Meta Specific
+llama-cpp-python>=0.2.0
+huggingface-hub>=0.19.0

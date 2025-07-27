@@ -1,0 +1,135 @@
+# Project Argus: Bias Detection Configuration
+# Advanced configuration for Meta's LLM bias detection system
+
+# Model Configuration
+model:
+  model_name: "meta-llama/Llama-2-7b-chat-hf"
+  model_type: "llama"
+  device: "auto"  # auto, cpu, cuda, mps
+  max_length: 512
+  temperature: 0.7
+  top_p: 0.9
+  use_cache: true
+  trust_remote_code: false
+
+# Bias Detection Configuration
+bias_detection:
+  # Detection methods to enable
+  enable_demographic_bias: true
+  enable_linguistic_bias: true
+  enable_cultural_bias: true
+  enable_gender_bias: true
+  enable_racial_bias: true
+  enable_religious_bias: true
+  enable_socioeconomic_bias: true
+  
+  # Detection thresholds
+  bias_threshold: 0.1
+  significance_level: 0.05
+  min_sample_size: 100
+  
+  # Counterfactual analysis
+  counterfactual_samples: 1000
+  perturbation_rate: 0.1
+  
+  # Multi-language support
+  languages:
+    - "en"  # English
+    - "es"  # Spanish
+    - "fr"  # French
+    - "de"  # German
+    - "zh"  # Chinese
+    - "ar"  # Arabic
+  detect_language: true
+
+# Real-time Monitoring Configuration
+monitoring:
+  # Kafka settings
+  kafka_bootstrap_servers: "localhost:9092"
+  kafka_topic_input: "argus-input"
+  kafka_topic_output: "argus-results"
+  kafka_consumer_group: "argus-bias-detector"
+  
+  # Redis settings
+  redis_host: "localhost"
+  redis_port: 6379
+  redis_db: 0
+  
+  # Monitoring intervals
+  batch_size: 100
+  processing_interval: 60  # seconds
+  alert_threshold: 0.2
+  
+  # Dashboard settings
+  dashboard_port: 8501
+  dashboard_host: "0.0.0.0"
+  refresh_interval: 30
+
+# Data Configuration
+data:
+  # Data paths
+  data_dir: "data"
+  models_dir: "models"
+  results_dir: "results"
+  cache_dir: "cache"
+  
+  # Database settings
+  database_url: null
+  use_database: false
+  
+  # Data processing
+  max_text_length: 2048
+  preprocessing_enabled: true
+  anonymization_enabled: true
+
+# System Configuration
+log_level: "INFO"
+log_file: null
+debug_mode: false
+random_seed: 42
+
+# Meta-specific Configuration
+meta_api_key: null
+meta_model_hub: "https://huggingface.co/meta-llama"
+use_meta_optimizations: true
+
+# Advanced Configuration
+advanced:
+  # Performance optimization
+  enable_gpu_acceleration: true
+  max_memory_usage: "8GB"
+  enable_model_parallelism: false
+  
+  # Bias detection algorithms
+  demographic_algorithms:
+    - "statistical_parity"
+    - "equalized_odds" 
+    - "demographic_parity"
+    - "individual_fairness"
+  
+  linguistic_algorithms:
+    - "dialect_detection"
+    - "formality_analysis"
+    - "inclusive_language_check"
+    - "cross_lingual_bias"
+  
+  # Counterfactual generation methods
+  counterfactual_methods:
+    - "direct_substitution"
+    - "template_based"
+    - "masked_language_model"
+    - "semantic_preservation"
+  
+  # Quality assurance
+  quality_checks:
+    enable_result_validation: true
+    enable_statistical_tests: true
+    enable_confidence_intervals: true
+    enable_effect_size_calculation: true
+  
+  # Experimental features
+  experimental:
+    enable_adversarial_testing: false
+    enable_fairness_constraints: false
+    enable_bias_mitigation: false
+    enable_interpretability: true

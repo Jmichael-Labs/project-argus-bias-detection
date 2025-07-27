@@ -1,0 +1,232 @@
+# Project Argus: Meta LLM-Specific Configuration
+# Optimized settings for Meta's language models (Llama family)
+
+# Meta Llama Model Configurations
+meta_models:
+  llama_2_7b:
+    model_name: "meta-llama/Llama-2-7b-chat-hf"
+    model_type: "llama"
+    parameters: 7000000000
+    context_length: 4096
+    recommended_batch_size: 8
+    memory_requirements: "14GB"
+    
+  llama_2_13b:
+    model_name: "meta-llama/Llama-2-13b-chat-hf"
+    model_type: "llama"
+    parameters: 13000000000
+    context_length: 4096
+    recommended_batch_size: 4
+    memory_requirements: "26GB"
+    
+  llama_2_70b:
+    model_name: "meta-llama/Llama-2-70b-chat-hf"
+    model_type: "llama"
+    parameters: 70000000000
+    context_length: 4096
+    recommended_batch_size: 1
+    memory_requirements: "140GB"
+    
+  code_llama:
+    model_name: "codellama/CodeLlama-7b-Python-hf"
+    model_type: "llama"
+    parameters: 7000000000
+    context_length: 16384
+    recommended_batch_size: 4
+    memory_requirements: "14GB"
+
+# Meta-Specific Bias Detection Settings
+meta_bias_detection:
+  # Known bias patterns in Meta models
+  known_bias_patterns:
+    gender:
+      - "reinforces traditional gender roles"
+      - "associates technical fields with masculinity"
+      - "shows preference for gendered pronouns"
+    
+    racial:
+      - "exhibits western-centric perspectives"
+      - "underrepresents non-western cultures"
+      - "shows bias in name-based associations"
+    
+    linguistic:
+      - "favors formal English over dialects"
+      - "shows bias against non-native speakers"
+      - "prefers American English conventions"
+  
+  # Meta-specific mitigation strategies
+  mitigation_strategies:
+    prompt_engineering:
+      - "Use inclusive language in prompts"
+      - "Explicitly request diverse perspectives"
+      - "Include bias warning instructions"
+    
+    output_filtering:
+      - "Check for exclusionary language"
+      - "Validate demographic representation"
+      - "Monitor sentiment across groups"
+    
+    training_recommendations:
+      - "Increase diverse training data"
+      - "Implement fairness constraints"
+      - "Use adversarial debiasing"
+
+# Llama-Specific Tokenization Settings
+tokenization:
+  # Special tokens for Llama models
+  special_tokens:
+    bos_token: "<s>"
+    eos_token: "</s>"
+    unk_token: "<unk>"
+    pad_token: "</s>"  # Llama uses EOS as padding
+  
+  # Tokenization parameters
+  max_position_embeddings: 4096
+  vocab_size: 32000
+  model_max_length: 4096
+  
+  # Handling of special sequences
+  chat_template: |
+    {%- for message in messages %}
+    {%- if message['role'] == 'user' %}
+    <s>[INST] {{ message['content'] }} [/INST]
+    {%- elif message['role'] == 'assistant' %}
+    {{ message['content'] }}</s>
+    {%- endif %}
+    {%- endfor %}
+
+# Performance Optimization for Meta Models
+optimization:
+  # Memory optimization
+  use_gradient_checkpointing: true
+  use_flash_attention: true
+  bf16_training: true
+  fp16_inference: true
+  
+  # Model sharding for large models
+  enable_model_parallelism: true
+  tensor_parallel_size: 2
+  pipeline_parallel_size: 1
+  
+  # Inference optimization
+  use_kv_cache: true
+  max_batch_size: 32
+  max_sequence_length: 2048
+  
+  # Quantization options
+  quantization:
+    enabled: false
+    method: "bitsandbytes"  # or "awq", "gptq"
+    bits: 4
+    group_size: 128
+
+# Meta Research Integration
+research_integration:
+  # Responsible AI principles
+  responsible_ai:
+    fairness: true
+    transparency: true
+    accountability: true
+    privacy: true
+    safety: true
+  
+  # Research metrics tracking
+  metrics:
+    - "demographic_parity"
+    - "equalized_odds"
+    - "individual_fairness"
+    - "counterfactual_fairness"
+    - "treatment_equality"
+  
+  # Experimental features from Meta AI
+  experimental_features:
+    constitutional_ai: false
+    red_teaming: true
+    adversarial_testing: true
+    human_feedback_integration: false
+
+# Deployment Configuration for Meta Infrastructure
+deployment:
+  # Container settings
+  docker:
+    base_image: "pytorch/pytorch:2.1.0-cuda11.8-cudnn8-devel"
+    python_version: "3.10"
+    cuda_version: "11.8"
+  
+  # Kubernetes deployment
+  kubernetes:
+    namespace: "argus-bias-detection"
+    resource_limits:
+      cpu: "8"
+      memory: "32Gi"
+      nvidia.com/gpu: "1"
+    
+    scaling:
+      min_replicas: 1
+      max_replicas: 10
+      target_cpu_utilization: 70
+  
+  # Model serving
+  serving:
+    framework: "vllm"  # or "tgi", "torchserve"
+    max_concurrent_requests: 100
+    request_timeout: 300
+    
+# Compliance and Safety
+compliance:
+  # Data governance
+  data_governance:
+    data_retention_days: 90
+    anonymization_required: true
+    audit_logging: true
+    
+  # Safety measures
+  safety:
+    content_filtering: true
+    output_monitoring: true
+    toxicity_detection: true
+    
+  # Privacy protection
+  privacy:
+    pii_detection: true
+    data_minimization: true
+    consent_tracking: false
+
+# Integration with Meta Tools
+meta_tools:
+  # Horizon integration (if available)
+  horizon:
+    enabled: false
+    experiment_tracking: true
+    model_versioning: true
+  
+  # Internal model registry
+  model_registry:
+    enabled: false
+    registry_url: "https://internal-model-registry.meta.com"
+    
+  # Meta AI platform integration
+  ai_platform:
+    enabled: false
+    platform_url: "https://ai-platform.meta.com"
+    
+# Monitoring and Alerting
+meta_monitoring:
+  # Custom metrics for Meta models
+  custom_metrics:
+    - "llama_bias_score"
+    - "response_quality"
+    - "safety_compliance"
+    - "performance_efficiency"
+  
+  # Alert configurations
+  alerts:
+    high_bias_threshold: 0.3
+    safety_violation_threshold: 0.1
+    performance_degradation_threshold: 0.2
+    
+  # Reporting
+  reporting:
+    daily_bias_report: true
+    weekly_safety_report: true
+    monthly_performance_report: true
